@@ -3,7 +3,8 @@ chdir('..');
 include_once('./v0.1/utils.php');
 include_once('../epi/Epi.php');
 include_once('../v0.1/model/include_dao.php');
-include_once('../v0.1/controller/users.php');
+include_once('../v0.1/controller/UsersController.php');
+include_once('../v0.1/controller/TagsController.php');
 /*
 include_once('../v0.1/controller/repositories.php');
 include_once('../v0.1/controller/documents.php');
@@ -21,7 +22,12 @@ EpiSession::employ(EpiSession::PHP);
 //getRoute()->load('routes.ini');
 getRoute()->get('/version', 'showVersion');
 getRoute()->get('/', 'welcome');
-getApi()->get('/users',array('Users','queryAll'), EpiApi::external);
+
+//Api Routes
+getApi()->get('/users/(\w*@\w*)*',array('UsersController','queryAll'), EpiApi::external);
+getApi()->post('/users/', array('UsersController','create'), EpiApi::external);
+getApi()->post('/tags/', array('TagsController','create'), EpiApi::external);
+getApi()->get('/tags/', array('TagsController','getAll'), EpiApi::external);
 
 //RUN!
 getRoute()->run();

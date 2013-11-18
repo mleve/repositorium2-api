@@ -1,7 +1,7 @@
 <?php
-class Users{
+class UsersController{
 	
-	public static function add(){
+	public static function create(){
 		
 		$User = new User();
 		

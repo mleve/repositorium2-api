@@ -56,7 +56,7 @@ class TagMySqlDAO implements TagDAO{
  	 *
  	 * @param TagMySql tag
  	 */
-	public function insert($tag){
+	public function create($tag){
 		$sql = 'INSERT INTO tag (name, description, upload_cost, download_cost, challenge_reward, penalty, created) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
@@ -66,7 +66,7 @@ class TagMySqlDAO implements TagDAO{
 		$sqlQuery->setNumber($tag->downloadCost);
 		$sqlQuery->setNumber($tag->challengeReward);
 		$sqlQuery->setNumber($tag->penalty);
-		$sqlQuery->set($tag->created);
+		$sqlQuery->set(date('c'));
 
 		$id = $this->executeInsert($sqlQuery);	
 		$tag->id = $id;

@@ -37,7 +37,7 @@ interface TagDAO{
  	 *
  	 * @param Tag tag
  	 */
-	public function insert($tag);
+	public function create($tag);
 	
 	/**
  	 * Update record in table
