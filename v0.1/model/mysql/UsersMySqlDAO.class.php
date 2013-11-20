@@ -16,7 +16,7 @@ class UsersMySqlDAO implements UsersDAO{
 	public function load($id){
 		$sql = 'SELECT * FROM users WHERE email = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($id);
+		$sqlQuery->setString($id);
 		return $this->getRow($sqlQuery);
 	}
 

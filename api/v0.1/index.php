@@ -17,6 +17,7 @@ Epi::setPath('config', '../api/v0.1');
 Epi::init('api');
 Epi::init('session');
 EpiSession::employ(EpiSession::PHP);
+//TODO check and set session duration
 
 //load paths
 //getRoute()->load('routes.ini');
@@ -24,10 +25,13 @@ getRoute()->get('/version', 'showVersion');
 getRoute()->get('/', 'welcome');
 
 //Api Routes
-getApi()->get('/users/(\w*@\w*)*',array('UsersController','queryAll'), EpiApi::external);
-getApi()->post('/users/', array('UsersController','create'), EpiApi::external);
-getApi()->post('/tags/', array('TagsController','create'), EpiApi::external);
-getApi()->get('/tags/', array('TagsController','getAll'), EpiApi::external);
+getApi()->get('/users/(\w+@(\w*.)+\w+)*',array('UsersController','queryAll'), EpiApi::external);
+getApi()->get('/users',array('UsersController','queryAll'), EpiApi::external);
+getApi()->post('/users', array('UsersController','create'), EpiApi::external);
+getApi()->post('/users/login', array('UsersController','login'), EpiApi::external);
+getApi()->get('/users/login', array('UsersController', 'checkLogin'), EpiApi::external);
+getApi()->post('/tags', array('TagsController','create'), EpiApi::external);
+getApi()->get('/tags/(\d*)', array('TagsController','getAll'), EpiApi::external);
 
 //RUN!
 getRoute()->run();

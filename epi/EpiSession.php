@@ -54,7 +54,9 @@ if(!function_exists('getSession'))
 {
   function getSession()
   {
+  	
     $employ = EpiSession::employ();
+    //TODO warning launched at this point
     $class = array_shift($employ);
     if($employ && class_exists($class))
       return EpiSession::getInstance($class, $employ);

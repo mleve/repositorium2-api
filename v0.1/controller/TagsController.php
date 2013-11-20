@@ -23,8 +23,14 @@ class TagsController{
 		return $id;
 	}
 	
-	public static function getAll(){
-		$result = DAOFactory::getTagDAO()->queryAll();
+	public static function getAll($tagId = null){
+		$result= null;
+		if($tagId != null){
+			$result = DAOFactory::getTagDAO()->load($tagId);
+		}
+		else{
+			$result = DAOFactory::getTagDAO()->queryAll();
+		}
 		return $result;
 	}
 }
