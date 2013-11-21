@@ -5,7 +5,7 @@
  * @author: http://phpdao.com
  * @date: 2013-11-16 10:53
  */
-interface TagDAO{
+interface CriteriaDAO{
 
 	/**
 	 * Get Domain object by primry key

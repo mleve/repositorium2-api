@@ -17,8 +17,15 @@ class UsersController{
 		$User->email = $_POST['email'];
 		$User->name = $_POST['name'];
 		$User->lastname = $_POST['lastname'];
-		$User->password = $_POST['password'];
 		$User->username = $_POST['username'];
+
+		//Secure password
+		$salt = base64_encode(mcrypt_create_iv(24, MCRYPT_DEV_URANDOM));
+		
+		$User->password = hash("sha256",$salt.$_POST['password']);
+		$User->salt = $salt;
+		
+		
 		$id = DAOFactory::getUsersDAO()->create($User);
 		
 		return $id;
@@ -42,10 +49,8 @@ class UsersController{
 		
 		if(!isset($_POST['password']) or !isset($_POST['username'])){
 			header('HTTP/1.1 401 Unauthorized');
-			$Error = new Error();
-			$Error->status = "401 Unauthorized";
-			$Error->message = "Please provide your username and password";
-			return $Error->toArray();
+			$error = array('error' => 'please provide your username and password');
+			return $error;
 		}
 		
 		$password = $_POST['password'];
@@ -59,19 +64,16 @@ class UsersController{
 		 * otherwise return error message
 		 */
 		
-		
-		
-		if(strcmp($password, $user['password'])==0) {
+		if(strcmp(hash("sha256",$user['salt'].$password), $user['password'])==0) {
 			unset($user['password']);
+			unset($user['salt']);
 			getSession()->set('user', $user);
 			return $user;
 			
 		}else{
 			header('HTTP/1.1 401 Unauthorized');
-			$Error = new Error();
-			$Error->status = "401 Unauthorized";
-			$Error->message = "Incorrect username or password";
-			return $Error->toArray(); 
+			$error = array('error' => 'incorrect username or password');
+			return $error;
 			
 		}
 		

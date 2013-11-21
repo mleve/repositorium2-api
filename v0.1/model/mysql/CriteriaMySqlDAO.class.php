@@ -1,20 +1,20 @@
 <?php
 /**
- * Class that operate on table 'tag'. Database Mysql.
+ * Class that operate on table 'Criteria'. Database Mysql.
  *
  * @author: http://phpdao.com
  * @date: 2013-11-16 10:53
  */
-class TagMySqlDAO implements TagDAO{
+class CriteriaMySqlDAO implements CriteriaDAO{
 
 	/**
 	 * Get Domain object by primry key
 	 *
 	 * @param String $id primary key
-	 * @return TagMySql 
+	 * @return criteriaMySql 
 	 */
 	public function load($id){
-		$sql = 'SELECT * FROM tag WHERE id = ?';
+		$sql = 'SELECT * FROM criteria WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($id);
 		return $this->getRow($sqlQuery);
@@ -24,7 +24,7 @@ class TagMySqlDAO implements TagDAO{
 	 * Get all records from table
 	 */
 	public function queryAll(){
-		$sql = 'SELECT * FROM tag';
+		$sql = 'SELECT * FROM criteria';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
@@ -35,17 +35,17 @@ class TagMySqlDAO implements TagDAO{
 	 * @param $orderColumn column name
 	 */
 	public function queryAllOrderBy($orderColumn){
-		$sql = 'SELECT * FROM tag ORDER BY '.$orderColumn;
+		$sql = 'SELECT * FROM criteria ORDER BY '.$orderColumn;
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
 	
 	/**
  	 * Delete record from table
- 	 * @param tag primary key
+ 	 * @param criteria primary key
  	 */
 	public function delete($id){
-		$sql = 'DELETE FROM tag WHERE id = ?';
+		$sql = 'DELETE FROM criteria WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($id);
 		return $this->executeUpdate($sqlQuery);
@@ -54,43 +54,42 @@ class TagMySqlDAO implements TagDAO{
 	/**
  	 * Insert record to table
  	 *
- 	 * @param TagMySql tag
+ 	 * @param criteriaMySql criteria
  	 */
-	public function create($tag){
-		$sql = 'INSERT INTO tag (name, description, upload_cost, download_cost, challenge_reward, penalty, created) VALUES (?, ?, ?, ?, ?, ?, ?)';
+	public function create($criteria){
+		$sql = 'INSERT INTO criteria (name, description, upload_cost, download_cost, challenge_reward, created) VALUES (?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tag->name);
-		$sqlQuery->set($tag->description);
-		$sqlQuery->setNumber($tag->uploadCost);
-		$sqlQuery->setNumber($tag->downloadCost);
-		$sqlQuery->setNumber($tag->challengeReward);
-		$sqlQuery->setNumber($tag->penalty);
+		$sqlQuery->set($criteria->name);
+		$sqlQuery->set($criteria->description);
+		$sqlQuery->setNumber($criteria->uploadCost);
+		$sqlQuery->setNumber($criteria->downloadCost);
+		$sqlQuery->setNumber($criteria->challengeReward);
 		$sqlQuery->set(date('c'));
 
 		$id = $this->executeInsert($sqlQuery);	
-		$tag->id = $id;
+		$criteria->id = $id;
 		return $id;
 	}
 	
 	/**
  	 * Update record in table
  	 *
- 	 * @param TagMySql tag
+ 	 * @param criteriaMySql criteria
  	 */
-	public function update($tag){
-		$sql = 'UPDATE tag SET name = ?, description = ?, upload_cost = ?, download_cost = ?, challenge_reward = ?, penalty = ?, created = ? WHERE id = ?';
+	public function update($criteria){
+		$sql = 'UPDATE criteria SET name = ?, description = ?, upload_cost = ?, download_cost = ?, challenge_reward = ?, created = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
-		$sqlQuery->set($tag->name);
-		$sqlQuery->set($tag->description);
-		$sqlQuery->setNumber($tag->uploadCost);
-		$sqlQuery->setNumber($tag->downloadCost);
-		$sqlQuery->setNumber($tag->challengeReward);
-		$sqlQuery->setNumber($tag->penalty);
-		$sqlQuery->set($tag->created);
+		$sqlQuery->set($criteria->name);
+		$sqlQuery->set($criteria->description);
+		$sqlQuery->setNumber($criteria->uploadCost);
+		$sqlQuery->setNumber($criteria->downloadCost);
+		$sqlQuery->setNumber($criteria->challengeReward);
+		$sqlQuery->setNumber($criteria->penalty);
+		$sqlQuery->set($criteria->created);
 
-		$sqlQuery->setNumber($tag->id);
+		$sqlQuery->setNumber($criteria->id);
 		return $this->executeUpdate($sqlQuery);
 	}
 
@@ -98,55 +97,55 @@ class TagMySqlDAO implements TagDAO{
  	 * Delete all rows
  	 */
 	public function clean(){
-		$sql = 'DELETE FROM tag';
+		$sql = 'DELETE FROM criteria';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function queryByName($value){
-		$sql = 'SELECT * FROM tag WHERE name = ?';
+		$sql = 'SELECT * FROM criteria WHERE name = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByDescription($value){
-		$sql = 'SELECT * FROM tag WHERE description = ?';
+		$sql = 'SELECT * FROM criteria WHERE description = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByUploadCost($value){
-		$sql = 'SELECT * FROM tag WHERE upload_cost = ?';
+		$sql = 'SELECT * FROM criteria WHERE upload_cost = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByDownloadCost($value){
-		$sql = 'SELECT * FROM tag WHERE download_cost = ?';
+		$sql = 'SELECT * FROM criteria WHERE download_cost = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByChallengeReward($value){
-		$sql = 'SELECT * FROM tag WHERE challenge_reward = ?';
+		$sql = 'SELECT * FROM criteria WHERE challenge_reward = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByPenalty($value){
-		$sql = 'SELECT * FROM tag WHERE penalty = ?';
+		$sql = 'SELECT * FROM criteria WHERE penalty = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByCreated($value){
-		$sql = 'SELECT * FROM tag WHERE created = ?';
+		$sql = 'SELECT * FROM criteria WHERE created = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
@@ -154,49 +153,49 @@ class TagMySqlDAO implements TagDAO{
 
 
 	public function deleteByName($value){
-		$sql = 'DELETE FROM tag WHERE name = ?';
+		$sql = 'DELETE FROM criteria WHERE name = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByDescription($value){
-		$sql = 'DELETE FROM tag WHERE description = ?';
+		$sql = 'DELETE FROM criteria WHERE description = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByUploadCost($value){
-		$sql = 'DELETE FROM tag WHERE upload_cost = ?';
+		$sql = 'DELETE FROM criteria WHERE upload_cost = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByDownloadCost($value){
-		$sql = 'DELETE FROM tag WHERE download_cost = ?';
+		$sql = 'DELETE FROM criteria WHERE download_cost = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByChallengeReward($value){
-		$sql = 'DELETE FROM tag WHERE challenge_reward = ?';
+		$sql = 'DELETE FROM criteria WHERE challenge_reward = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByPenalty($value){
-		$sql = 'DELETE FROM tag WHERE penalty = ?';
+		$sql = 'DELETE FROM criteria WHERE penalty = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByCreated($value){
-		$sql = 'DELETE FROM tag WHERE created = ?';
+		$sql = 'DELETE FROM criteria WHERE created = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
@@ -207,21 +206,20 @@ class TagMySqlDAO implements TagDAO{
 	/**
 	 * Read row
 	 *
-	 * @return TagMySql 
+	 * @return criteriaMySql 
 	 */
 	protected function readRow($row){
-		$tag = new Tag();
+		$criteria= new Criteria();
 		
-		$tag->id = $row['id'];
-		$tag->name = $row['name'];
-		$tag->description = $row['description'];
-		$tag->uploadCost = $row['upload_cost'];
-		$tag->downloadCost = $row['download_cost'];
-		$tag->challengeReward = $row['challenge_reward'];
-		$tag->penalty = $row['penalty'];
-		$tag->created = $row['created'];
+		$criteria->id = $row['id'];
+		$criteria->name = $row['name'];
+		$criteria->description = $row['description'];
+		$criteria->uploadCost = $row['upload_cost'];
+		$criteria->downloadCost = $row['download_cost'];
+		$criteria->challengeReward = $row['challenge_reward'];
+		$criteria->created = $row['created'];
 
-		return $tag;
+		return $criteria;
 	}
 	
 	protected function getList($sqlQuery){
@@ -236,7 +234,7 @@ class TagMySqlDAO implements TagDAO{
 	/**
 	 * Get row
 	 *
-	 * @return TagMySql 
+	 * @return criteriaMySql 
 	 */
 	protected function getRow($sqlQuery){
 		$tab = QueryExecutor::execute($sqlQuery);

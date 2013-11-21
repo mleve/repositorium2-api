@@ -13,6 +13,8 @@
 		var $lastname;
 		var $password;
 		var $created;
+		
+		var $salt;
 		
 	}
 ?>

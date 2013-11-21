@@ -1,5 +1,11 @@
 <?php
-	//include all DAO files
+
+//include all DAO files
+	require_once('dao/ExpertDAO.class.php');
+	require_once('dto/Expert.class.php');
+	require_once 'mysql/ExpertMySqlDAO.php';
+
+
 	require_once('sql/Connection.class.php');
 	require_once('sql/ConnectionFactory.class.php');
 	require_once('sql/ConnectionProperty.class.php');
@@ -25,13 +31,12 @@
 	require_once('dto/File.class.php');
 	require_once('mysql/FilesMySqlDAO.class.php');
 	require_once('mysql/ext/FilesMySqlExtDAO.class.php');
-	require_once('dao/TagDAO.class.php');
-	require_once('dto/Tag.class.php');
-	require_once('mysql/TagMySqlDAO.class.php');
-	require_once('mysql/ext/TagMySqlExtDAO.class.php');
+	require_once('dao/CriteriaDAO.class.php');
+	require_once('dto/Criteria.class.php');
+	require_once('mysql/CriteriaMySqlDAO.class.php');
+	require_once('mysql/ext/CriteriaMySqlExtDAO.class.php');
 	require_once('dao/UsersDAO.class.php');
 	require_once('dto/User.class.php');
 	require_once('mysql/UsersMySqlDAO.class.php');
 	require_once('mysql/ext/UsersMySqlExtDAO.class.php');
-
 ?>
