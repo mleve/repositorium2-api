@@ -56,7 +56,7 @@ class AppMySqlDAO implements AppDAO{
  	 *
  	 * @param AppMySql app
  	 */
-	public function insert($app){
+	public function create($app){
 		$sql = 'INSERT INTO app (name, description, developer_id) VALUES (?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
