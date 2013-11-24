@@ -6,6 +6,9 @@ include_once('../v0.1/model/include_dao.php');
 include_once('../v0.1/controller/UsersController.php');
 include_once('../v0.1/controller/CriteriaController.php');
 include_once( '../v0.1/controller/AppsController.php');
+include_once('../v0.1/controller/AppCriteriaController.php');
+include_once('../v0.1/custom/AppCriteriaModel.php');
+include_once('../v0.1/custom/CustomFactory.php');
 /*
 include_once('../v0.1/controller/repositories.php');
 include_once('../v0.1/controller/documents.php');
@@ -26,7 +29,7 @@ getRoute()->get('/version', 'showVersion');
 getRoute()->get('/', 'welcome');
 
 //Api Routes
-getApi()->get('/users/(\w+@(\w*.)+\w+)*',array('UsersController','queryAll'), EpiApi::external);
+getApi()->get('/users/(\w+)',array('UsersController','queryAll'), EpiApi::external);
 getApi()->get('/users',array('UsersController','queryAll'), EpiApi::external);
 getApi()->post('/users', array('UsersController','create'), EpiApi::external);
 getApi()->post('/users/login', array('UsersController','login'), EpiApi::external);
@@ -35,6 +38,7 @@ getApi()->post('/criteria', array('CriteriaController','create'), EpiApi::extern
 getApi()->get('/criteria', array('CriteriaController','getAll'), EpiApi::external);
 getApi()->post('/apps', array('AppsController','create'), EpiApi::external);
 getApi()->get('/apps', array('AppsController','getAll'), EpiApi::external);
+getApi()->post('/appsCriteria', array('AppCriteriaController','create'), EpiApi::external);
 
 //RUN!
 getRoute()->run();

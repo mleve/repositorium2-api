@@ -10,6 +10,8 @@ class AppsController{
 			$error = array('error' => 'You must be logged in to create an app');
 			return $error; 
 		}
+		//TODO check that the has not been created before
+		
 		$app = new App();
 		
 		$app->name = $_POST['name'];

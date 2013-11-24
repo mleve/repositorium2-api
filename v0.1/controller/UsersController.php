@@ -32,16 +32,21 @@ class UsersController{
 	}
 	
 	
-	public static function queryAll($userEmail=null){
+	public static function queryAll($username=null){
 		$result=null;
-		//echo $userEmail;
-		if($userEmail!=null){
-			$result = DAOFactory::getUsersDAO()->load($userEmail);
+		if($username!=null){
+			$result = DAOFactory::getUsersDAO()->load($username);
+			unset($result->password);
+			unset($result->salt);	
 		}
 		else{
 			$result = DAOFactory::getUsersDAO()->queryAll();	
+			foreach ($result as $row){
+				unset($row->password);
+				unset($row->salt);	
+			}
 		}
-		
+			
 		return $result;
 	}
 
