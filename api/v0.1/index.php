@@ -8,7 +8,6 @@ include_once('../v0.1/controller/CriteriaController.php');
 include_once( '../v0.1/controller/AppsController.php');
 include_once('../v0.1/controller/AppCriteriaController.php');
 include_once('../v0.1/custom/AppCriteriaModel.php');
-include_once('../v0.1/custom/CustomFactory.php');
 /*
 include_once('../v0.1/controller/repositories.php');
 include_once('../v0.1/controller/documents.php');
