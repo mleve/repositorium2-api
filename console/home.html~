@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <head>
+    <title>Repositorium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Bootstrap and others-->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/my_css.css" rel="stylesheet">
+  </head>
+  <body>
+
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="row">
+  	  	<div class="col-md-8"><a href="index.html" class="repositorium"><img src="images/logo.png"/></a></div>
+   	 	<div class="col-md-4">
+			<form class="navbar-form navbar-right">
+				<div class="form-group">
+					<input type="text" placeholder="Email" class="form-control">
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="Password" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-success my-button">Sign in</button>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+    		<div class="col-md-3">col1</div>
+    		<div class="col-md-3">col2</div>
+    		<div class="col-md-3">col1</div>
+    		<div class="col-md-3">col2</div>
+	</div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+  </body>
+</html>
+
