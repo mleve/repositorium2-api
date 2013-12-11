@@ -3,7 +3,7 @@
 class AppCriteriaModel{
 	
 	public static function create($app_criteria){
-		$sql = 'INSERT INTO app_criteria (app_id, criteria_id) VALUES (?, ?)';
+		$sql = 'INSERT INTO app_criteria (app_id, criterion_id) VALUES (?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		
@@ -19,7 +19,7 @@ class AppCriteriaModel{
 	}
 
 	public static function load($appId,$criteriaId){
-		$sql = 'SELECT * FROM app_criteria WHERE app_id = ? AND criteria_id = ? ';
+		$sql = 'SELECT * FROM app_criteria WHERE app_id = ? AND criterion_id = ? ';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($appId);
 		$sqlQuery->setNumber($criteriaId);
@@ -34,7 +34,7 @@ class AppCriteriaModel{
 		
 		$result = array();
 		$result = $result + array("app_id" => $tab[0]['app_id']);
-		$result = $result + array('criteria_id'  => $tab[0]['criteria_id']);
+		$result = $result + array('criteria_id'  => $tab[0]['criterion_id']);
 		return $result;
 	}
 }

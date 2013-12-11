@@ -9,7 +9,7 @@
 		
 		var $user_id;
 
-		var $criteria_id;
+		var $criteron_id;
 		
 	}
 ?>

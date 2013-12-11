@@ -14,7 +14,7 @@ class AppMySqlDAO implements AppDAO{
 	 * @return AppMySql 
 	 */
 	public function load($id){
-		$sql = 'SELECT * FROM app WHERE id = ?';
+		$sql = 'SELECT * FROM apps WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($id);
 		return $this->getRow($sqlQuery);
@@ -24,7 +24,7 @@ class AppMySqlDAO implements AppDAO{
 	 * Get all records from table
 	 */
 	public function queryAll(){
-		$sql = 'SELECT * FROM app';
+		$sql = 'SELECT * FROM apps';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
@@ -35,7 +35,7 @@ class AppMySqlDAO implements AppDAO{
 	 * @param $orderColumn column name
 	 */
 	public function queryAllOrderBy($orderColumn){
-		$sql = 'SELECT * FROM app ORDER BY '.$orderColumn;
+		$sql = 'SELECT * FROM apps ORDER BY '.$orderColumn;
 		$sqlQuery = new SqlQuery($sql);
 		return $this->getList($sqlQuery);
 	}
@@ -45,7 +45,7 @@ class AppMySqlDAO implements AppDAO{
  	 * @param app primary key
  	 */
 	public function delete($id){
-		$sql = 'DELETE FROM app WHERE id = ?';
+		$sql = 'DELETE FROM apps WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->setNumber($id);
 		return $this->executeUpdate($sqlQuery);
@@ -57,7 +57,7 @@ class AppMySqlDAO implements AppDAO{
  	 * @param AppMySql app
  	 */
 	public function create($app){
-		$sql = 'INSERT INTO app (name, description, developer_id) VALUES (?, ?, ?)';
+		$sql = 'INSERT INTO apps (name, description, developer_id) VALUES (?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($app->name);
@@ -75,7 +75,7 @@ class AppMySqlDAO implements AppDAO{
  	 * @param AppMySql app
  	 */
 	public function update($app){
-		$sql = 'UPDATE app SET name = ?, description = ?, developer_id = ? WHERE id = ?';
+		$sql = 'UPDATE apps SET name = ?, description = ?, developer_id = ? WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($app->name);
@@ -90,27 +90,27 @@ class AppMySqlDAO implements AppDAO{
  	 * Delete all rows
  	 */
 	public function clean(){
-		$sql = 'DELETE FROM app';
+		$sql = 'DELETE FROM apps';
 		$sqlQuery = new SqlQuery($sql);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function queryByName($value){
-		$sql = 'SELECT * FROM app WHERE name = ?';
+		$sql = 'SELECT * FROM apps WHERE name = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByDescription($value){
-		$sql = 'SELECT * FROM app WHERE description = ?';
+		$sql = 'SELECT * FROM apps WHERE description = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
 	}
 
 	public function queryByDeveloperId($value){
-		$sql = 'SELECT * FROM app WHERE developer_id = ?';
+		$sql = 'SELECT * FROM apps WHERE developer_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->getList($sqlQuery);
@@ -118,21 +118,21 @@ class AppMySqlDAO implements AppDAO{
 
 
 	public function deleteByName($value){
-		$sql = 'DELETE FROM app WHERE name = ?';
+		$sql = 'DELETE FROM apps WHERE name = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByDescription($value){
-		$sql = 'DELETE FROM app WHERE description = ?';
+		$sql = 'DELETE FROM apps WHERE description = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);
 	}
 
 	public function deleteByDeveloperId($value){
-		$sql = 'DELETE FROM app WHERE developer_id = ?';
+		$sql = 'DELETE FROM apps WHERE developer_id = ?';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($value);
 		return $this->executeUpdate($sqlQuery);

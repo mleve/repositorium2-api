@@ -4,7 +4,7 @@ class ExpertMySqlDao implements ExpertsDAO{
 	public function create($expert,$criteria){
 		//print_r($expert);
 		//print_r($criteria);
-		$sql = 'INSERT INTO expert (user_id,criteria_id) VALUES (?,?)';
+		$sql = 'INSERT INTO experts (user_id,criterion_id) VALUES (?,?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($expert['username']);

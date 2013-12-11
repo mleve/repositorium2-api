@@ -38,6 +38,7 @@ getApi()->get('/criteria', array('CriteriaController','getAll'), EpiApi::externa
 getApi()->post('/apps', array('AppsController','create'), EpiApi::external);
 getApi()->get('/apps', array('AppsController','getAll'), EpiApi::external);
 getApi()->post('/appsCriteria', array('AppCriteriaController','create'), EpiApi::external);
+getApi()->post('/documents', array('DocumentsController','create'), EpiApi::external);
 
 //RUN!
 getRoute()->run();
