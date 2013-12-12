@@ -56,14 +56,14 @@ class documentMySqlDAO implements documentDAO{
  	 *
  	 * @param documentsMySql documents
  	 */
-	public function insert($documents){
+	public function create($documents){
 		$sql = 'INSERT INTO documents (name, description, creator_id, created) VALUES (?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		
 		$sqlQuery->set($documents->name);
 		$sqlQuery->set($documents->description);
 		$sqlQuery->set($documents->creatorId);
-		$sqlQuery->set($documents->created);
+		$sqlQuery->set(date('c'));
 
 		$id = $this->executeInsert($sqlQuery);	
 		$documents->id = $id;

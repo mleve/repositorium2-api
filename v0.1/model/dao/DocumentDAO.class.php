@@ -37,7 +37,7 @@ interface DocumentDAO{
  	 *
  	 * @param Document document
  	 */
-	public function insert($document);
+	public function create($document);
 	
 	/**
  	 * Update record in table
