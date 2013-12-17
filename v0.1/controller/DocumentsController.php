@@ -47,8 +47,17 @@ class DocumentsController{
 				$fileRow->documentId = $documentId;
 				$fileRow->url = $uploadedFileDestination;
 				DAOFactory::getFilesDAO()->create($fileRow);
+				
+				
 			}
 		}
+		
+		//Asign criteria for this Document
+		$postParam = array('_POST' => array('document_id' => $documentId,
+										'criteria' => $_POST["criteria"])); 
+		getApi()->invoke("/documents/fullfill", EpiRoute::httpPost, $postParam);
+		
+		
 		
 		return $documentId;
 

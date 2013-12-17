@@ -9,6 +9,8 @@ include_once( '../v0.1/controller/AppsController.php');
 include_once('../v0.1/controller/AppCriteriaController.php');
 include_once('../v0.1/custom/AppCriteriaModel.php');
 include_once('../v0.1/controller/DocumentsController.php');
+include_once('../v0.1/custom/FullFillsModel.php');
+include_once('../v0.1/controller/FullFillsController.php');
 /*
 include_once('../v0.1/controller/repositories.php');
 include_once('../v0.1/controller/documents.php');
@@ -29,6 +31,7 @@ getRoute()->get('/version', 'showVersion');
 getRoute()->get('/', 'welcome');
 
 //Api Routes
+//Externals: Can be called with normal http requests by anybody
 getApi()->get('/users/(\w+)',array('UsersController','queryAll'), EpiApi::external);
 getApi()->get('/users',array('UsersController','queryAll'), EpiApi::external);
 getApi()->post('/users', array('UsersController','create'), EpiApi::external);
@@ -40,6 +43,11 @@ getApi()->post('/apps', array('AppsController','create'), EpiApi::external);
 getApi()->get('/apps', array('AppsController','getAll'), EpiApi::external);
 getApi()->post('/appsCriteria', array('AppCriteriaController','create'), EpiApi::external);
 getApi()->post('/documents', array('DocumentsController','create'), EpiApi::external);
+
+/*Internals: Can be called only by the server via getApi()->invoke() , routes not accesible by 
+external apps
+*/
+getApi()->post('/documents/fullfill', array('FullFillsController','create'), EpiApi::internal);
 
 //RUN!
 getRoute()->run();
