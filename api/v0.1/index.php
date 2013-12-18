@@ -11,6 +11,8 @@ include_once('../v0.1/custom/AppCriteriaModel.php');
 include_once('../v0.1/controller/DocumentsController.php');
 include_once('../v0.1/custom/FullFillsModel.php');
 include_once('../v0.1/controller/FullFillsController.php');
+include_once('../v0.1/controller/PunctuationsController.php');
+include_once('../v0.1/custom/PunctuationsModel.php');
 /*
 include_once('../v0.1/controller/repositories.php');
 include_once('../v0.1/controller/documents.php');
@@ -48,6 +50,9 @@ getApi()->post('/documents', array('DocumentsController','create'), EpiApi::exte
 external apps
 */
 getApi()->post('/documents/fullfill', array('FullFillsController','create'), EpiApi::internal);
+getApi()->post('/users/punctuation', array('PunctuationsController','load'), EpiApi::internal);
+getApi()->post('/users/punctuation/(\d+)', array('PunctuationsController','update'), EpiApi::internal);
+
 
 //RUN!
 getRoute()->run();
