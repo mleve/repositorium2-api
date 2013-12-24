@@ -45,6 +45,8 @@ getApi()->post('/apps', array('AppsController','create'), EpiApi::external);
 getApi()->get('/apps', array('AppsController','getAll'), EpiApi::external);
 getApi()->post('/appsCriteria', array('AppCriteriaController','create'), EpiApi::external);
 getApi()->post('/documents', array('DocumentsController','create'), EpiApi::external);
+getApi()->get('/documents/(\d+)', array('DocumentsController', 'download'), EpiApi::external);
+getApi()->post('/documents/(\d+)', array('DocumentsController', 'pay'), EpiApi::external);
 
 /*Internals: Can be called only by the server via getApi()->invoke() , routes not accesible by 
 external apps
@@ -66,7 +68,7 @@ function welcome() {
 function showVersion() {
   header('HTTP/1.1 200 OK');
   echo 'The version of this api is 0.1<br>';
-  echo 'You can find documentation at http://cgajardo.github.com/repositorium-api';
+  echo 'You can find documentation at http://github.com/mleve/repositorium2-api/wiki';
   exit(0);
   
 }

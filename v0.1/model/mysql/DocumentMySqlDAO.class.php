@@ -19,6 +19,7 @@ class documentMySqlDAO implements documentDAO{
 		$sqlQuery->setNumber($id);
 		return $this->getRow($sqlQuery);
 	}
+	
 
 	/**
 	 * Get all records from table
@@ -162,8 +163,7 @@ class documentMySqlDAO implements documentDAO{
 	 * @return documentsMySql 
 	 */
 	protected function readRow($row){
-		$documents = new documents();
-		
+		$documents = new Document();
 		$documents->id = $row['id'];
 		$documents->name = $row['name'];
 		$documents->description = $row['description'];

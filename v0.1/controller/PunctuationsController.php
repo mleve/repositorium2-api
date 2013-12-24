@@ -30,6 +30,12 @@ class PunctuationsController{
 					$punctuation['failure_rate'] = $previous['failure_rate'];
 					$aux->update($punctuation);
 					break;
+				case "payDownload":
+					$punctuation['credit'] = $previous['credit'] - $criterionInfo->uploadCost;
+					$punctuation['score'] = $previous['score'];
+					$punctuation['failure_rate'] = $previous['failure_rate'];
+					$aux->update($punctuation);
+					break;
 			}
 			
 			

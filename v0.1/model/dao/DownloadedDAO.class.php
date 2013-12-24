@@ -20,6 +20,8 @@ interface DownloadedDAO{
 	 */
 	public function queryAll();
 	
+	public function queryByUserAndDocument($userId,$docId);
+	
 	/**
 	 * Get all records from table ordered by field
 	 * @Param $orderColumn column name
@@ -37,7 +39,7 @@ interface DownloadedDAO{
  	 *
  	 * @param Downloaded downloaded
  	 */
-	public function insert($downloaded);
+	public function create($downloaded);
 	
 	/**
  	 * Update record in table
