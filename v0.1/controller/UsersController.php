@@ -14,6 +14,10 @@ class UsersController{
 		if($existent!=null)
 			return returnError('400 Bad Request','User already existe. Try with another email.');
 		*/
+		if(empty($_POST['username']) or empty($_POST['email']) or empty($_POST['password'])){
+			$error = array("error" => "please Fill all fields");
+			return $error;
+		}
 		$User->email = $_POST['email'];
 		$User->name = $_POST['name'];
 		$User->lastname = $_POST['lastname'];
@@ -53,7 +57,7 @@ class UsersController{
 	public static function login(){
 		
 		if(!isset($_POST['password']) or !isset($_POST['username'])){
-			header('HTTP/1.1 401 Unauthorized');
+			//header('HTTP/1.1 401 Unauthorized');
 			$error = array('error' => 'please provide your username and password');
 			return $error;
 		}
@@ -61,7 +65,13 @@ class UsersController{
 		$password = $_POST['password'];
 		$username = $_POST['username'];
 		$user = (array)DAOFactory::getUsersDAO()->queryByUsername($username);
+		if(empty($user)){
+			$error = array("error" => "User does not exists");
+			return $error;
+		}
+			
 		//print_r($user);
+		
 		$user = (array)$user[0];
 		//print_r($user);
 		/**
@@ -76,7 +86,7 @@ class UsersController{
 			return $user;
 			
 		}else{
-			header('HTTP/1.1 401 Unauthorized');
+			//header('HTTP/1.1 401 Unauthorized');
 			$error = array('error' => 'incorrect username or password');
 			return $error;
 			

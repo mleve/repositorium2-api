@@ -6,7 +6,7 @@ class CriteriaController{
 		
 		$user = getSession()->get('user');
 		if($user == null){
-			header('HTTP/1.1 401 Unauthorized');
+			//header('HTTP/1.1 401 Unauthorized');
 			$error = array('error' => 'You must be logged in to create a criteria');
 			return $error; 
 		}
@@ -32,7 +32,7 @@ class CriteriaController{
 		return $id;	
 		}
 		else{
-			header('HTTP/1.1 500 Internal Server Error');
+			//header('HTTP/1.1 500 Internal Server Error');
 			$error = array('error' => 'could not create a Criteria, please try again later');
 			return $error; 	
 		}

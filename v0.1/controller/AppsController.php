@@ -6,7 +6,7 @@ class AppsController{
 		
 		$user = getSession()->get('user');
 		if($user == null){
-			header('HTTP/1.1 401 Unauthorized');
+			//header('HTTP/1.1 401 Unauthorized');
 			$error = array('error' => 'You must be logged in to create an app');
 			return $error; 
 		}
@@ -24,7 +24,7 @@ class AppsController{
 		return $id;	
 		}
 		else{
-			header('HTTP/1.1 500 Internal Server Error');
+			//header('HTTP/1.1 500 Internal Server Error');
 			$error = array('error' => 'could not create an App, please try again later');
 			return $error; 	
 		}

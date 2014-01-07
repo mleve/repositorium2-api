@@ -10,12 +10,15 @@ class DocumentsController{
 		 * 
 		 * 
 		 * */
-		
+		/*
+		print_r($_FILES);
+		print_r($_POST);
+		*/
 		
 		$user = getSession()->get('user');
 		
 		if($user == null){
-			header('HTTP/1.1 200 wrong request');
+			//header('HTTP/1.1 200 wrong request');
 			$error = array('error' => 'You must be logged in');
 			return $error; 
 		}
@@ -87,15 +90,16 @@ class DocumentsController{
 		$postParam = array('_POST' => array('document_id' => $documentId,
 										'criteria' => $_POST["criteria"])); 
 		getApi()->invoke("/documents/fullfill", EpiRoute::httpPost, $postParam);
-		return $documentId;
+		return array("documentId" => $documentId);
 
+		
 	}
 	
 	public static function download($docId = null){
 		
 		$user = getSession()->get('user');
 		if($user == null){
-			header('HTTP/1.1 400 wrong request');
+			//header('HTTP/1.1 400 wrong request');
 			$error = array('error' => 'You must be logged in');
 			return $error; 
 		}		
@@ -103,7 +107,7 @@ class DocumentsController{
 		//check Document existence
 		$documentInfo = DAOFactory::getDocumentDAO()->load($docId);
 		if($documentInfo ==null){
-			header('HTTP/1.1 400 wrong request');
+			//header('HTTP/1.1 400 wrong request');
 			$error = array('error' => 'Document not found');
 			return $error; 
 			
@@ -112,7 +116,7 @@ class DocumentsController{
 		$paymentInfo = DAOFactory::getDownloadedDAO()->queryByUserAndDocument($user['username'], $docId);
 		//print_r($paymentInfo);
 		if($paymentInfo == null){
-			header('HTTP/1.1 400 wrong request');
+			//header('HTTP/1.1 400 wrong request');
 			$error = array('error' => "You have not yet paid for this document");
 			return $error; 
 		}
@@ -148,7 +152,7 @@ class DocumentsController{
 		//check document existence
 		$documentInfo = DAOFactory::getDocumentDAO()->load($docId);
 		if($documentInfo ==null){
-			header('HTTP/1.1 400 wrong request');
+			//header('HTTP/1.1 400 wrong request');
 			$error = array('error' => 'Document not found');
 			return $error; 
 		}	
@@ -175,7 +179,7 @@ class DocumentsController{
 				}
 			}
 			if(!$canAfford){
-				header('HTTP/1.1 400 wrong request');
+				//header('HTTP/1.1 400 wrong request');
 				$errorMessage = "You don't have enough credit in the following criterions: ";
 				foreach ($errors as $criterionName){
 					$errorMessage = $errorMessage . " ". $criterionName;
