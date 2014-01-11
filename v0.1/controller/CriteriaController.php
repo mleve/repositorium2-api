@@ -4,8 +4,9 @@ class CriteriaController{
 	public static function create(){
 		
 		
-		$user = getSession()->get('user');
-		if($user == null){
+		//$user = getSession()->get('user');
+		$user = $_POST['username'];
+		if(getSession()->get('user') == null){
 			//header('HTTP/1.1 401 Unauthorized');
 			$error = array('error' => 'You must be logged in to create a criteria');
 			return $error; 
