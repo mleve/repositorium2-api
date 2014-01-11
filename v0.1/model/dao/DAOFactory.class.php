@@ -36,10 +36,10 @@ class DAOFactory{
 	}
 
 	/**
-	 * @return TagDAO
+	 * @return CriteriaDAO
 	 */
-	public static function getTagDAO(){
-		return new TagMySqlExtDAO();
+	public static function getCriteriaDAO(){
+		return new CriteriaMySqlDAO();
 	}
 
 	/**
@@ -47,6 +47,10 @@ class DAOFactory{
 	 */
 	public static function getUsersDAO(){
 		return new UsersMySqlExtDAO();
+	}
+	
+	public static function getExpertDAO(){
+		return new ExpertMySqlDAO();
 	}
 
 

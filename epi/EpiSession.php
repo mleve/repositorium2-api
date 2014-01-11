@@ -54,7 +54,13 @@ if(!function_exists('getSession'))
 {
   function getSession()
   {
-    $employ = EpiSession::employ();
+  	//Modified by Mario:
+  	//It probably raise and exception if you use more than one sesión type
+    $employ = Array(EpiSession::employ());
+    
+    /*Original:
+     * $employ = EpiSession::employ();
+     * */
     $class = array_shift($employ);
     if($employ && class_exists($class))
       return EpiSession::getInstance($class, $employ);

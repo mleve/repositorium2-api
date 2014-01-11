@@ -37,7 +37,7 @@ interface AppDAO{
  	 *
  	 * @param App app
  	 */
-	public function insert($app);
+	public function create($app);
 	
 	/**
  	 * Update record in table

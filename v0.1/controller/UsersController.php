@@ -5,7 +5,7 @@ class UsersController{
 		
 		$User = new User();
 		
-		/*
+		/* TODO check minimum data before create an user
 		//check for minimum set of data
 		if(!isset($_POST['name']) or !isset($_POST['email']) or !isset($_POST['password']))
 			return returnError('488 Incomplete request','Please provide email, name and password');
@@ -14,63 +14,88 @@ class UsersController{
 		if($existent!=null)
 			return returnError('400 Bad Request','User already existe. Try with another email.');
 		*/
+		if(empty($_POST['username']) or empty($_POST['email']) or empty($_POST['password'])){
+			$error = array("error" => "please Fill all fields");
+			return $error;
+		}
 		$User->email = $_POST['email'];
 		$User->name = $_POST['name'];
 		$User->lastname = $_POST['lastname'];
-		$User->password = $_POST['password'];
 		$User->username = $_POST['username'];
+
+		//Secure password
+		$salt = base64_encode(mcrypt_create_iv(24, MCRYPT_DEV_URANDOM));
+		
+		$User->password = hash("sha256",$salt.$_POST['password']);
+		$User->salt = $salt;
+		
+		
 		$id = DAOFactory::getUsersDAO()->create($User);
 		
 		return $id;
 	}
 	
-	public static function queryAll(){
-		$result = DAOFactory::getUsersDAO()->queryAll();
-		/*
-		print_r($result);
-		$userArray = array();
-		while(($row =  mysql_fetch_assoc($result))) {
-    		$userArray[] = $row;
+	
+	public static function queryAll($username=null){
+		$result=null;
+		if($username!=null){
+			$result = DAOFactory::getUsersDAO()->load($username);
+			unset($result->password);
+			unset($result->salt);	
 		}
-		*/
-		//echo $result;
+		else{
+			$result = DAOFactory::getUsersDAO()->queryAll();	
+			foreach ($result as $row){
+				unset($row->password);
+				unset($row->salt);	
+			}
+		}
+			
 		return $result;
 	}
 
 	public static function login(){
 		
-		if(!isset($_POST['password'])){
-			header('HTTP/1.1 401 Unauthorized');
-			$Error = new Error();
-			$Error->status = "401 Unauthorized";
-			$Error->message = "Please provide an email and password";
-			return $Error->toArray();
+		if(!isset($_POST['password']) or !isset($_POST['username'])){
+			//header('HTTP/1.1 401 Unauthorized');
+			$error = array('error' => 'please provide your username and password');
+			return $error;
 		}
 		
 		$password = $_POST['password'];
-		$email = $_POST['email'];
-		$User = DAOFactory::getUsersDAO()->queryByEmail($email);
+		$username = $_POST['username'];
+		$user = (array)DAOFactory::getUsersDAO()->queryByUsername($username);
+		if(empty($user)){
+			$error = array("error" => "User does not exists");
+			return $error;
+		}
+			
+		//print_r($user);
 		
+		$user = (array)$user[0];
+		//print_r($user);
 		/**
 		 * if passwords match, then add user to session
 		 * otherwise return error message
 		 */
 		
-		$checkPassword = array( 'self', 'checkPassword' );
-		
-		if(call_user_func( $checkPassword, $User->id, $password)) {
-			getSession()->set('user', $User);
-			return $User->toArray();
+		if(strcmp(hash("sha256",$user['salt'].$password), $user['password'])==0) {
+			unset($user['password']);
+			unset($user['salt']);
+			getSession()->set('user', $user);
+			return $user;
 			
 		}else{
-			header('HTTP/1.1 401 Unauthorized');
-			$Error = new Error();
-			$Error->status = "401 Unauthorized";
-			$Error->message = "Incorrect email or password";
-			return $Error->toArray(); 
+			//header('HTTP/1.1 401 Unauthorized');
+			$error = array('error' => 'incorrect username or password');
+			return $error;
 			
 		}
 		
+	}
+	
+	public static function checkLogin(){
+		return getSession()->get('user');
 	}
 	
 	public static function load($email){

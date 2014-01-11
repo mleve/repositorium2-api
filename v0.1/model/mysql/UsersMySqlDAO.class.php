@@ -14,9 +14,9 @@ class UsersMySqlDAO implements UsersDAO{
 	 * @return UsersMySql 
 	 */
 	public function load($id){
-		$sql = 'SELECT * FROM users WHERE email = ?';
+		$sql = 'SELECT * FROM users WHERE username = ?';
 		$sqlQuery = new SqlQuery($sql);
-		$sqlQuery->set($id);
+		$sqlQuery->setString($id);
 		return $this->getRow($sqlQuery);
 	}
 
@@ -57,7 +57,7 @@ class UsersMySqlDAO implements UsersDAO{
  	 * @param UsersMySql user
  	 */
 	public function create($user){
-		$sql = 'INSERT INTO users (email,username, name, lastname, password, created) VALUES (?, ?, ?, ?, ?, ?)';
+		$sql = 'INSERT INTO users (email,username, name, lastname, password, created, salt) VALUES (?, ?, ?, ?, ?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		$sqlQuery->set($user->email);
 		$sqlQuery->set($user->username);
@@ -65,6 +65,7 @@ class UsersMySqlDAO implements UsersDAO{
 		$sqlQuery->set($user->lastname);
 		$sqlQuery->set($user->password);
 		$sqlQuery->set(date('c'));
+		$sqlQuery->set($user->salt);
 
 		$id = $this->executeInsert($sqlQuery);	
 		//$user->email = $id;
@@ -186,6 +187,7 @@ class UsersMySqlDAO implements UsersDAO{
 		$user->lastname = $row['lastname'];
 		$user->password = $row['password'];
 		$user->created = $row['created'];
+		$user->salt = $row['salt'];
 
 		return $user;
 	}
