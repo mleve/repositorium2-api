@@ -4,30 +4,30 @@ class AppCriteriaController{
 	public static function create(){
 		
 		
-		$user = getSession()->get('user');
-		
+		//$user = getSession()->get('user');
+		$user = $_POST['username'];
 		$criteria = DAOFactory::getCriteriaDAO()->load($_POST['criteria_id']);
 		$app = DAOFactory::getAppDAO()->load($_POST['app_id']);
 		
 		if($criteria == null or $app == null){
-			header('HTTP/1.1 400 Wrong Request');
+			//header('HTTP/1.1 400 Wrong Request');
 			$error = array('error' => 'App or criteria not found, please try again');
 			return $error; 
 			
 		}
 		if($user == null){
-			header('HTTP/1.1 400 wrong request');
+			//header('HTTP/1.1 400 wrong request');
 			$error = array('error' => 'You must be logged in');
 			return $error; 
 		}
-		elseif (strcmp($user['username'],$app->developerId)!=0){
-			header('HTTP/1.1 401 UnAuthorized');
+		elseif (strcmp($user,$app->developerId)!=0){
+			//header('HTTP/1.1 401 UnAuthorized');
 			$error = array('error' => 'you are not the developer of this app');
 			return $error; 
 		
 		}
 		if(self::checkExistence($_POST['app_id'], $_POST['criteria_id']) == TRUE){
-			header('HTTP/1.1 402 Wrong Request');
+			//header('HTTP/1.1 402 Wrong Request');
 			$error = array('error' => 'This app already uses this criteria');
 			return $error; 
 			

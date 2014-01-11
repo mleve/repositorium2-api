@@ -20,6 +20,14 @@ class DownloadedMySqlDAO implements DownloadedDAO{
 		return $this->getRow($sqlQuery);
 	}
 
+	public function queryByUserAndDocument($userId,$docId){
+		$sql = 'SELECT * FROM downloaded WHERE user_id=? AND document_id = ?';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->set($userId);
+		$sqlQuery->setNumber($docId);
+		return $this->getRow($sqlQuery);
+	}	
+	
 	/**
 	 * Get all records from table
 	 */
@@ -56,7 +64,7 @@ class DownloadedMySqlDAO implements DownloadedDAO{
  	 *
  	 * @param DownloadedMySql downloaded
  	 */
-	public function insert($downloaded){
+	public function create($downloaded){
 		$sql = 'INSERT INTO downloaded (user_id, document_id) VALUES (?, ?)';
 		$sqlQuery = new SqlQuery($sql);
 		

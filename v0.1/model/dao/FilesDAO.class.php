@@ -14,6 +14,8 @@ interface FilesDAO{
 	 * @Return Files 
 	 */
 	public function load($id);
+	
+	public function getCount();
 
 	/**
 	 * Get all records from table
@@ -37,7 +39,7 @@ interface FilesDAO{
  	 *
  	 * @param Files file
  	 */
-	public function insert($file);
+	public function create($file);
 	
 	/**
  	 * Update record in table

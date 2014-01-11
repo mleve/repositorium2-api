@@ -4,9 +4,10 @@ class AppsController{
 	public static function create(){
 		
 		
-		$user = getSession()->get('user');
-		if($user == null){
-			header('HTTP/1.1 401 Unauthorized');
+		//$user = getSession()->get('user');
+		$user = $_POST['username'];
+		if(getSession()->get('user')){
+			//header('HTTP/1.1 401 Unauthorized');
 			$error = array('error' => 'You must be logged in to create an app');
 			return $error; 
 		}
@@ -16,7 +17,7 @@ class AppsController{
 		
 		$app->name = $_POST['name'];
 		$app->description = $_POST['description'];
-		$app->developerId = $user['username'];
+		$app->developerId = $user;
 		$id = DAOFactory::getAppDAO()->create($app);
 		
 		//in success, define that this user is an expert for this tag
@@ -24,7 +25,7 @@ class AppsController{
 		return $id;	
 		}
 		else{
-			header('HTTP/1.1 500 Internal Server Error');
+			//header('HTTP/1.1 500 Internal Server Error');
 			$error = array('error' => 'could not create an App, please try again later');
 			return $error; 	
 		}

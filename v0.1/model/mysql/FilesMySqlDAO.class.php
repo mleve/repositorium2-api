@@ -19,6 +19,12 @@ class FilesMySqlDAO implements FilesDAO{
 		$sqlQuery->setNumber($id);
 		return $this->getRow($sqlQuery);
 	}
+	
+	public function getCount(){
+		$sql = 'SELECT COUNT(*) FROM files';
+		$sqlQuery = new SqlQuery($sql);
+		return QueryExecutor::execute($sqlQuery);
+	}
 
 	/**
 	 * Get all records from table
@@ -56,10 +62,10 @@ class FilesMySqlDAO implements FilesDAO{
  	 *
  	 * @param FilesMySql file
  	 */
-	public function insert($file){
-		$sql = 'INSERT INTO files (document_id, url) VALUES (?, ?)';
+	public function create($file){
+		$sql = 'INSERT INTO files (id, document_id, url) VALUES (?, ?, ?)';
 		$sqlQuery = new SqlQuery($sql);
-		
+		$sqlQuery->setNumber($file->id);
 		$sqlQuery->setNumber($file->documentId);
 		$sqlQuery->set($file->url);
 
