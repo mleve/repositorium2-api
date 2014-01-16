@@ -34,7 +34,7 @@ getRoute()->get('/', 'welcome');
 
 //Api Routes
 //Externals: Can be called with normal http requests by anybody
-getApi()->get('/users/(\w+)',array('UsersController','queryAll'), EpiApi::external);
+//getApi()->get('/users/(\w+)',array('UsersController','queryAll'), EpiApi::external);
 getApi()->get('/users',array('UsersController','queryAll'), EpiApi::external);
 getApi()->post('/users', array('UsersController','create'), EpiApi::external);
 getApi()->post('/users/login', array('UsersController','login'), EpiApi::external);

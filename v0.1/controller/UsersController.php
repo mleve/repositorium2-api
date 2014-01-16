@@ -95,7 +95,9 @@ class UsersController{
 	}
 	
 	public static function checkLogin(){
+		//cho "hola";
 		return getSession()->get('user');
+		//return "hola";
 	}
 	
 	public static function load($email){
