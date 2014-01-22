@@ -24,6 +24,23 @@ class FullFillsController{
 		
 	}
 	
+	public static function get(){
+		
+		if(strcmp($_GET['type'], 'positive') == 0){
+			$aux = FullFillsModel::getByStatus($_GET['criterion_id'], 1);
+			return $aux;						
+		}
+		else if(strcmp($_GET['type'], 'negative') == 0){
+			$aux = FullFillsModel::getByStatus($_GET['criterion_id'], -1);
+			return $aux;							
+		}
+		else if(strcmp($_GET['type'], 'unknown') == 0){
+			$aux = FullFillsModel::getByStatus($_GET['criterion_id'], 0);
+			return $aux;							
+		}
+		
+	}
+	
 	protected static function checkExistence($criterionId,$documentId){
 		$aux = new FullFillsModel();
 		$result = $aux->load($criterionId, $documentId);

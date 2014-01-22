@@ -13,6 +13,9 @@ interface DocumentDAO{
 	 * @param String $id primary key
 	 * @Return Document 
 	 */
+	
+	public function getMany($idArray);
+	
 	public function load($id);
 
 	/**

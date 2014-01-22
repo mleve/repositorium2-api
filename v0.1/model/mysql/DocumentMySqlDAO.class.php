@@ -13,6 +13,18 @@ class documentMySqlDAO implements documentDAO{
 	 * @param String $id primary key
 	 * @return documentsMySql 
 	 */
+	
+	public function getMany($idArray){
+		$sql = 'SELECT * FROM documents WHERE id = ?';
+		for($i=1;$i<count($idArray);$i++){
+			$sql = $sql . " or id=?";
+		}
+		$sqlQuery = new SqlQuery($sql);
+		foreach ($idArray as $id)
+			$sqlQuery->setNumber($id);
+		
+		return $this->getList($sqlQuery);		
+	}
 	public function load($id){
 		$sql = 'SELECT * FROM documents WHERE id = ?';
 		$sqlQuery = new SqlQuery($sql);

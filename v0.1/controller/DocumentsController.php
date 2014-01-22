@@ -1,6 +1,8 @@
 <?php
 class DocumentsController{
 	
+	
+	
 	public static function create(){
 		/*Creates a new document in the DB and uploads all attached files
 		 * for this Documents as a Transaction.
@@ -70,20 +72,42 @@ class DocumentsController{
 		$document->creatorId = $user['username'];
 		$documentId = DAOFactory::getDocumentDAO()->create($document);
 		if($documentId != null){
-			$uploaddir = '../uploaded/'; 
-			foreach ($_FILES as $file){
-				$aux = DAOFactory::getFilesDAO()->getCount();
-				$rowId = $aux['0']['0']+1;
-				
-				$uploadedFileDestination = $uploaddir . $rowId . basename($file['name']);				
-				move_uploaded_file($file['tmp_name'], $uploadedFileDestination);
-				
+			/*TODO check if the users submits a file or a URL 
+			 * and save in files table
+			 * */
+			//if filesUrl is set, then the attachment of a document are URLS
+			
+			if(isset($_POST['filesUrl'])){
+				echo"hola";
 				$fileRow = new File();
-				$fileRow->id = $rowId;
-				$fileRow->documentId = $documentId;
-				$fileRow->url = $uploadedFileDestination;
-				DAOFactory::getFilesDAO()->create($fileRow);		
+				$filesUrl = json_decode($_POST['filesUrl']);
+				foreach ($filesUrl as $filesUrl){
+					$fileRow = new File();
+					$fileRow->documentId = $documentId;
+					$fileRow->url = $filesUrl;
+					DAOFactory::getFilesDAO()->create($fileRow);	
+				}
+				
 			}
+			else{
+				$uploaddir = '../uploaded/'; 
+				foreach ($_FILES as $file){
+					$aux = DAOFactory::getFilesDAO()->getCount();
+					$rowId = $aux['0']['0']+1;
+					
+					$uploadedFileDestination = $uploaddir . $rowId . basename($file['name']);				
+					move_uploaded_file($file['tmp_name'], $uploadedFileDestination);
+					
+					$fileRow = new File();
+					$fileRow->id = $rowId;
+					$fileRow->documentId = $documentId;
+					$fileRow->url = $uploadedFileDestination;
+					DAOFactory::getFilesDAO()->create($fileRow);		
+				}	
+			}
+			
+			
+			
 		}
 		
 		//Asign criteria for this Document
@@ -146,6 +170,44 @@ class DocumentsController{
 		
 	}
 	
+	public static function getForChallenge(){
+		
+		$docs = array();
+		
+		foreach ($_GET['docsId'] as $docId){
+		
+		$documentInfo = DAOFactory::getDocumentDAO()->load($docId);
+
+		
+		$response = array( "id" => $documentInfo->id,
+						   "name" => $documentInfo->name,
+						   "description" => $documentInfo->description,
+						   "created" => $documentInfo->created);
+		
+		$attachedFiles = DAOFactory::getFilesDAO()->queryByDocumentId($docId);
+		$i=1;
+		foreach($attachedFiles as $file){
+			if(substr_compare($file->url, "http://", 0,7) == 0){
+				//web resource, return URL
+				$response["file".$i] = $file->url;
+			}
+			else{
+				//load file and return
+				$fileContent = file_get_contents($file->url);
+				
+				$response["file".$i] = array("name" => substr("".$file->url, strlen('../uploaded/'.$file->id)),
+											 "content" => base64_encode($fileContent));
+			}
+			$i++;
+		}
+		
+		array_push($docs, $response);
+		
+		}
+		return $docs;
+		
+	}
+	
 	public static function pay($docId = null){
 		//TODO check all the information comming
 		
@@ -160,16 +222,17 @@ class DocumentsController{
 		$paymentInfo = DAOFactory::getDownloadedDAO()->queryByUserAndDocument($_POST['username'], $docId);
 		//print_r($paymentInfo);
 		if($paymentInfo == null){
-			$appCriteria = AppCriteriaModel::loadAppCriteria($_POST['app_id']);
+			//check if the user can pay for the document in all criterions used in query
+			$appCriteria = json_decode($_POST['criteria']);
 			//Check if the user can pay for the document in all app criteria
 			$canAfford = true;
 			$errors = array();
 			foreach ($appCriteria as $row){
 				$punctuationParams = array('_POST' => array('user_id' => $_POST['username'],
-															'criterion_id' => $row["criterion_id"]));
+															'criterion_id' => $row));
 				$result = getApi()->invoke("/users/punctuation", EpiRoute::httpPost, $punctuationParams);
 				
-				$criterionAux = DAOFactory::getCriteriaDAO()->load($row["criterion_id"]);
+				$criterionAux = DAOFactory::getCriteriaDAO()->load($row);
 				
 				$uploadCost = $criterionAux->uploadCost;
 				
@@ -191,7 +254,7 @@ class DocumentsController{
 			foreach ($appCriteria as $row){
 				$punctuationParams = array('_POST' => array('user_id' => $_POST['username'],
 															'updateType' => 'payDownload'));
-				getApi()->invoke("/users/punctuation/".$row["criterion_id"], EpiRoute::httpPost, $punctuationParams);
+				getApi()->invoke("/users/punctuation/".$row, EpiRoute::httpPost, $punctuationParams);
 			}
 			
 			//Register that the user has paid for the document
