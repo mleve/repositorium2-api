@@ -29,10 +29,17 @@ class UsersController{
 		$User->password = hash("sha256",$salt.$_POST['password']);
 		$User->salt = $salt;
 		
+		try {
+			$id = DAOFactory::getUsersDAO()->create($User);
+		} catch (Exception $e) {
+			$id =-1;
+		}
 		
-		$id = DAOFactory::getUsersDAO()->create($User);
-		
-		return $id;
+		if($id != 0)
+			$resp['error'] = "username or email already exists, choose another";
+		else 
+			$resp["status"] = "ok";
+		return $resp;
 	}
 	
 	
