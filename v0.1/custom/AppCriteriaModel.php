@@ -26,6 +26,14 @@ class AppCriteriaModel{
 		return self::getRow($sqlQuery);
 	}
 	
+	public static function getCriteria($appId){
+		$sql = 'SELECT appCrit.criterion_id, crit.name, crit.description FROM app_criteria appCrit, criteria crit where appCrit.app_id = ?'.
+				' and appCrit.criterion_id = crit.id';
+		$sqlQuery = new SqlQuery($sql);
+		$sqlQuery->setNumber($appId);
+		return self::getList($sqlQuery);
+	}
+	
 	protected static function getRow($sqlQuery){
 		$tab = QueryExecutor::execute($sqlQuery);
 		if(count($tab)==0){
@@ -43,12 +51,17 @@ class AppCriteriaModel{
 	protected static function getList($sqlQuery){
 		$tab = QueryExecutor::execute($sqlQuery);
 		$ret = array();
+		
 		for($i=0;$i<count($tab);$i++){
 			$row = array();
 			if(array_key_exists("app_id",$tab[$i]))
 				$row["app_id"] = $tab[$i]["app_id"];
 			if(array_key_exists("criterion_id",$tab[$i]))
 				$row["criterion_id"] = $tab[$i]["criterion_id"];
+			if(array_key_exists("description",$tab[$i]))
+				$row["description"] = $tab[$i]["description"];
+			if(array_key_exists("name",$tab[$i]))
+				$row["name"] = $tab[$i]["name"];
 			$ret[$i] = $row;
 		}
 		return $ret;

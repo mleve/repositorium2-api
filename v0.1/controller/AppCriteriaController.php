@@ -55,6 +55,12 @@ class AppCriteriaController{
 		
 	}
 	
+	public static function getCriteriaForApp($appId){
+		$aux = new AppCriteriaModel();
+		$result = $aux->getCriteria($appId);
+		return $result;
+	}
+	
 	protected static function checkExistence($appId,$criteriaId){
 		$aux = new AppCriteriaModel;
 		$result = $aux->load($appId,$criteriaId);

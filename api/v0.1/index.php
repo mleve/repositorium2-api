@@ -52,6 +52,9 @@ getApi()->get('/documents/(\d+)', array('DocumentsController', 'download'), EpiA
 getApi()->post('/documents/(\d+)', array('DocumentsController', 'pay'), EpiApi::external);
 getApi()->get('/challenges', array('ChallengesController','get'),EpiApi::external);
 
+//TODO not yet implemented
+getAPi()->get('/apps/(\d+)/criteria',array('AppCriteriaController','getCriteriaForApp'),EpiApi::external);
+
 /*Internals: Can be called only by the server via getApi()->invoke() , routes not accesible by 
 external apps
 */

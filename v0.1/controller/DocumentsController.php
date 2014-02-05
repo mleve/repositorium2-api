@@ -29,6 +29,8 @@ class DocumentsController{
 		
 		//check if the user has enough credit in each criterion to upload the document
 		$criteria = json_decode($_POST['criteria']);
+		if(!is_array($criteria))
+			$criteria = array($criteria);
 		
 		$canAfford = true;
 		$errors = array();
@@ -47,7 +49,7 @@ class DocumentsController{
 			}
 		}
 		if(!$canAfford){
-			header('HTTP/1.1 200 wrong request');
+			//header('HTTP/1.1 200 wrong request');
 			$errorMessage = "You don't have enough credit in the following criterions: ";
 			foreach ($errors as $criterionName){
 				$errorMessage = $errorMessage . " ". $criterionName;
@@ -78,16 +80,22 @@ class DocumentsController{
 			//if filesUrl is set, then the attachment of a document are URLS
 			
 			if(isset($_POST['filesUrl'])){
-				echo"hola";
 				$fileRow = new File();
 				$filesUrl = json_decode($_POST['filesUrl']);
-				foreach ($filesUrl as $filesUrl){
+				if(is_array($filesUrl)){
+					foreach ($filesUrl as $filesUrl){
+						$fileRow = new File();
+						$fileRow->documentId = $documentId;
+						$fileRow->url = $filesUrl;
+						DAOFactory::getFilesDAO()->create($fileRow);	
+					}
+				}
+				else{
 					$fileRow = new File();
 					$fileRow->documentId = $documentId;
 					$fileRow->url = $filesUrl;
-					DAOFactory::getFilesDAO()->create($fileRow);	
+					DAOFactory::getFilesDAO()->create($fileRow);					
 				}
-				
 			}
 			else{
 				$uploaddir = '../uploaded/'; 
