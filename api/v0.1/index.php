@@ -5,7 +5,7 @@ include_once('../epi/Epi.php');
 include_once('../v0.1/model/include_dao.php');
 include_once('../v0.1/controller/UsersController.php');
 include_once('../v0.1/controller/CriteriaController.php');
-include_once( '../v0.1/controller/AppsController.php');
+include_once('../v0.1/controller/AppsController.php');
 include_once('../v0.1/controller/AppCriteriaController.php');
 include_once('../v0.1/custom/AppCriteriaModel.php');
 include_once('../v0.1/controller/DocumentsController.php');

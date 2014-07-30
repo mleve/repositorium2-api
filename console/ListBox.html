@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Listbox</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta itemprop="name" content="Bootstrap Dual List Box">
+
+        <script src="libraries/modernizr/modernizr-custom.min.js"></script>
+
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+        <link href="css/bootstrap-theme.css" rel="stylesheet" type="text/css" media="all">
+        <link href="libraries/prettify/prettify.css" rel="stylesheet" type="text/css" media="all">
+        <link href="css/bootstrap-duallistbox.css" rel="stylesheet" type="text/css" media="all">
+
+        <script src="libraries/jquery-1.9.0.min.js"></script>
+        <script src="libraries/prettify/prettify.js"></script>
+        <script src="js/jquery.bootstrap-duallistbox.js"></script>
+	<script src="libraries/jquery-placeholder/jquery.placeholder.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="container" style="margin:0 auto;">
+
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="row">
+
+                        <select multiple="multiple" size="10" name="duallistbox_demo2" class='demo2 col-md-6'>
+                            <option value="option1" selected="selected">Comuna 1</option>
+                            <option value="option2">Comuna 2</option>
+                            <option value="option3">Comuna 3</option>
+                            <option value="option4">Comuna 4</option>
+                            <option value="option5">Comuna 5</option>
+                            <option value="option6">Comuna 6</option>
+                            <option value="option7">Comuna 7</option>
+                            <option value="option8">Comuna 8</option>
+                            <option value="option9">Comuna 9</option>
+                            <option value="option0">Comuna 10</option>
+                            <option value="option0">Comuna 11</option>
+                            <option value="option0">Comuna 12</option>
+                            <option value="option0">Comuna 13</option>
+                            <option value="option0">Comuna 14</option>
+                            <option value="option0">Comuna 15</option>
+                            <option value="option0">Comuna 16</option>
+                            <option value="option0">Comuna 17</option>
+                            <option value="option0">Comuna 18</option>
+                            <option value="option0">Comuna 19</option>
+                            <option value="option0">Comuna 20</option>
+                        </select>
+                        <script>
+                            var demo2 = $('.demo2').bootstrapDualListbox({
+                                nonselectedlistlabel: 'Non-selected',
+                                selectedlistlabel: 'Selected',
+                                preserveselectiononmove: 'moved',
+                                moveonselect: false,
+                            });
+                        </script>
+                    </div>
+
+        </div>

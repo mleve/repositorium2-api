@@ -21,14 +21,11 @@
 					class="icon-bar"></span>
 			</button>
 			<!--<a class="navbar-brand" href="#">Repositorium</a> -->
-			<a href="index.html" class="repositorium"><img
-				src="images/logo.png" width="300px" pading=10px ""; /> </a>
+			<a href="index.html" class="repositorium"><img src="images/logo.png" width="300px" pading=10px"></a>
 		</div>
 
-		<p></p>
-
 		<div class="navbar-collapse collapse">
-			<form class="navbar-form navbar-right" role="form" style="margin-left: 1px; margin-right: 1px;">
+			<form class="navbar-form navbar-right">
 				<div class="form-group">
 					<input type="text" placeholder="Email" class="form-control">
 				</div>
@@ -36,9 +33,9 @@
 					<input type="password" placeholder="Password" class="form-control">
 				</div>
 				<button id="sign-in" type="submit" class="btn btn-success my-button-sign-in">Sign in</button>
-				<p><a href="" data-toggle="modal" data-target="#t_and_c_m" class="pull-right forgot-pass">Forgot Password?</a></p>
 			</form>
 		</div>
+
 
 		<div class="row">
 			<button id="console" class="col-md-3 col-xs-6 btn-danger">
@@ -55,23 +52,36 @@
 			</button>
 		</div>
 
-	</div>
 
 
-	<!-- Main jumbotron for a primary marketing message or call to action -->
-	<div class="jumbotron">
+		<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
 
-		<!-- Welcome -->
+		<!-- Sign in -->
 		<div class="container left-div" style="padding-left: 20px; padding-right:20px">
 			<div>
-			<h1><i>Welcome to Repositorium!</i></h1>
+			<form role="form">
+				<h2>Sign In</h2>
 				<hr class="colorgraph">
-				<h2>Slogan here and a basic explanation about what Repositorium is.</h2>
+				<div class="form-group">
+					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+				</div>
+
+				<div class="form-group">
+					<input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+				</div>
+
+				<p><a id="forgot-pass" href="" data-toggle="modal" data-target="#t_and_c_m">Forgot Password?</a></p>
+			
+				<button id="sign-1" type="submit" class="btn btn-success my-button-sign">Sign in</button>
+
+			</form>
 			</div>
 		</div>
 
 		<!-- Sign up -->
 		<div class="container right-div" style="padding-left: 20px; padding-right:20px">
+			<div>
 			<form role="form">
 				<h2>Sign Up</h2>
 				<hr class="colorgraph">
@@ -98,7 +108,7 @@
 				<div class="form-group">
 					<input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address" tabindex="4">
 				</div>
-
+	
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6">
 						<div class="form-group">
@@ -113,21 +123,25 @@
 					</div>
 				</div>
 
-				<p style="font-size: 16px">By clicking <strong>Sign Up</strong>, you agree to the
+				<p>By clicking <strong>Sign Up</strong>, you agree to the
 				<a href="" data-toggle="modal" data-target="#t_and_c_m">Terms and Conditions</a>
 				set out by this site.</p>	
 				
 				<button id="sign-2" type="submit" class="btn btn-success my-button-sign">Sign Up</button>
 
 			</form>
+			</div>
 		</div>
-	</div>
+	
 
+		</div>
+
+	</div>
 
 	<!--<footer>
         <p>&copy; Repositorium</p>
-	</footer>-->
-
+      </footer>-->
+    </div>
 
 
 	<!-- Bootstrap core JavaScript
@@ -136,7 +150,6 @@
 	<script src="js/jquery.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/contentSelector.js"></script>
-
 </body>
 </html>
 
