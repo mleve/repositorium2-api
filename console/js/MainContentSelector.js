@@ -29,7 +29,6 @@ function lalala(){
 }
 
 
-
 $("#console").on("click", lalala);
 $("#what").on("click", lalala);
 $("#how").on("click", lalala);

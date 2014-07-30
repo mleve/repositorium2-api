@@ -8,7 +8,7 @@
 class ConnectionProperty{
 	private static $host = 'localhost';
 	private static $user = 'repositorium';
-	private static $password = 'repositorium';
+	private static $password = 'Repositorium';
 	private static $database = 'repositorium';
 
 	public static function getHost(){
